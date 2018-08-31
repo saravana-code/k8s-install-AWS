@@ -1,0 +1,20 @@
+. .env && kops create cluster \
+    --name $KOPS_CLUSTER_NAME \
+    --cloud $KOPS_CLOUD_PROVIDER \
+    --state ${KOPS_STATE_STORE} \
+    --kubernetes-version ${KUBERNETES_VERSION} \
+    --cloud-labels "Environment=\"staging\",Type=\"k8s\",Role=\"node\",Provisioner=\"kops\"" \
+    --node-count $KOPS_NODE_COUNT \
+    --zones $KOPS_CLUSTER_ZONES \
+    --master-zones ${MASTER_ZONES} \
+    --dns-zone "example.com" \
+    --dns public \
+    --node-size $KOPS_NODE_SIZE \
+    --master-size $KOPS_MASTER_SIZE \
+    --topology private \
+    --networking calico \
+    --master-count $KOPS_MASTER_COUNT \
+    --node-count $KOPS_NODE_COUNT \
+    --bastion \
+    --logtostderr --v 2 \
+    --yes
